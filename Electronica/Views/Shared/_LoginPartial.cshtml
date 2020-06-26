@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li id="register"> <a href="@Url.Action("Register", "Account")" class="contact"><i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>Register</a></li>
+        <li id="login"> <a href="@Url.Action("Login", "Account")" class="signin mr-4"> <i class="fa fa-sign-in fa-2x" aria-hidden="true"></i>Sign in </a></li>
+    </ul>
+}
+<style type="text/css">
+
+    #register{
+         font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #6d6f7d;
+    text-transform: capitalize;
+	font-family: 'Niramit', sans-serif;
+
+    }
+
+    #register:hover{
+         background-color:peru;
+            height:80px;
+    }
+
+
+
+            #login {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #6d6f7d;
+    text-transform: capitalize;
+	font-family: 'Niramit', sans-serif;
+}
+    
+             #login:hover {
+     background-color:peru;
+            height:80px;
+}
+
+
+</style>

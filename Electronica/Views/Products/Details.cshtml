@@ -1,0 +1,90 @@
+﻿@model Electronica.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.category.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.supplier.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.supplier.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prod_Pic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prod_Pic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VAT_Percent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VAT_Percent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Prod_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

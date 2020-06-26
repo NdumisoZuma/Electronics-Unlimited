@@ -1,0 +1,63 @@
+﻿@model Electronica.Models.Accessory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="modal-title text-center text-primary text-capitalize">Product Details</h2>
+
+
+<div class="row">
+    <div class="col-md-4 pull-left">
+        <a><img src="data:image/png;base64,@Convert.ToBase64String(Model.prod_Pic,0,Model.prod_Pic.Length)" style="width:300px; height:300px" alt="prooduct image" /></a>
+    </div>
+    <div class="col-md-6 pull-right">
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => Model.Prod_Name)</td>
+                <td>@Html.DisplayFor(model => Model.Prod_Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => Model.Prod_Description)</td>
+                <td>@Html.DisplayFor(model => Model.Prod_Description)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => Model.Prod_Qty)</td>
+                <td>@Html.DisplayFor(model => Model.Prod_Qty)</td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>@Html.DisplayFor(model => Model.Total)</td>
+            </tr>
+           
+
+        <tr>
+            <td></td>
+            <td><a href="@Url.Action(actionName: "Add_to_cart2", controllerName: "Shop", routeValues: new {id = Model.Prod_Id})" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Add to cart</a><br /></td>
+        </tr>
+
+
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Prod_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Prod_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

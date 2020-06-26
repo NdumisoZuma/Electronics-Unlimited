@@ -1,0 +1,197 @@
+﻿@model Electronica.Models.DeviceIndexViewModel1
+@using PagedList.Mvc
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css">
+
+@{
+    ViewBag.Title = "DeviceIndex";
+
+}
+
+<link href="~/Content/MDB-Free_4.15.0/css/mdb.css" rel="stylesheet" />
+<link href="~/Content/MDB-Free_4.15.0/css/mdb.lite.css" rel="stylesheet" />
+<link href="~/Content/MDB-Free_4.15.0/css/mdb.lite.min.css" rel="stylesheet" />
+
+
+<link href="~/Content/MDB-Free_4.15.0/css/mdb.min.css" rel="stylesheet" />
+
+
+<style type="text/css">
+
+    #title {
+        font-family: fantasy;
+        font-size: xx-large;
+    }
+
+    #card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 250px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+    }
+
+    #Product-Name {
+        color: black;
+        font-family: Impact;
+        font-size: 20px;
+    }
+
+    .price {
+        color: black;
+        font-size: 16px;
+        font-family: Impact;
+    }
+
+    #button:hover {
+        opacity: 0.7;
+    }
+
+    #button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+
+    #contract {
+        font-size: 15px;
+    }
+
+    #contract-details {
+        font-size: 11px;
+    }
+</style>
+
+
+
+
+
+<br />
+<div>
+    @using (Html.BeginForm("DeviceIndex", "Shop", FormMethod.Get))
+    {
+        <p>
+            Find by Name : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Sort", "DeviceIndex", new { sortOrder = ViewBag.NameSortparm, currentFilter = ViewBag.CurrentFilter })
+</div>
+
+
+
+
+<div class="row"  data-target="#navbar-example" data-offset="0"
+     style="height:550px;overflow:auto; position: relative;">
+    @foreach (var item in Model.ListOfProducts)
+
+    {
+
+        <div class="col-md-4 table-condensed" id="card" style="height:270px">
+
+            <div class="row" style="text-align: center;padding-top:5px">
+
+                @if (item.prod_Pic != null)
+                {
+                    var base64 = Convert.ToBase64String(inArray: item.prod_Pic);
+                    var imgSrc = string.Format(format: "data:image/gif;base64,{0}", arg0: base64);
+                    <img src="@imgSrc" width="200" height="230" />
+                }
+
+            </div>
+
+            <div class="row">
+
+                <p>
+                    <h4 id="Product-Name" class="title text-center"> <b> @Html.DisplayFor(modelItem => item.Prod_Name)</b></h4>
+                </p>
+
+
+                @*<tr>
+                        <td style="text-align:center"><b>Category:</b></td>
+                        <td style="text-align:center">
+                            <b>Category</b>  @Html.DisplayFor(modelItem => item.category.CategoryName)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:center"><b>Supplier:</b></td>
+                        <td style="text-align:center">
+                            <b>Supplier:</b>  @Html.DisplayFor(modelItem => item.supplier.Name)
+                        </td>
+                    </tr>*@
+
+
+
+                @*<p style="text-align:center">
+                        <b>Description:</b>   @Html.DisplayFor(modelItem => item.Prod_Description)
+                    </p>*@
+
+
+
+
+                @*<p style="text-align:center">
+                      <b>Available quantity:</b>  @Html.DisplayFor(modelItem => item.Prod_Qty)
+                    </p>*@
+
+
+
+
+                @*<p style="text-align:center">>>>>>></p>
+                    <p>
+                        Prepaid: @Html.RadioButton("Purchase", "Prepaid")  On Contract: @Html.RadioButton("Purchase", "OnContract")
+
+                    </p>*@
+
+
+
+
+
+                <p class="price" style="text-align:center">
+                    R @Html.DisplayFor(modelItem => item.Total)
+                </p>
+
+
+                <p id="contract" style="text-align:center"><h5 class="title text-center"><b>Available On contract</b></h5></p>
+
+
+
+                <p id="button" style="text-align: center">
+                    @if (item.Prod_Qty == 0)
+                    {
+                        <a href="@Url.Action(actionName: "Add_to_cart", controllerName: "Shop", routeValues: new {id = item.Prod_Id})" class="btn disabled btn-default"><i class="fa fa-shopping-cart disabled"></i> Out of stock</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action(actionName: "Add_to_cart", controllerName: "Shop", routeValues: new {id = item.Prod_Id})" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Add to cart</a><br />
+                        <a href="@Url.Action(actionName: "Details", controllerName: "Devices", routeValues: new {id = item.Prod_Id})" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> View Details</a>
+
+                    }
+                    @*@if ()
+                        {
+                            ApplicationDbContext db = new ApplicationDbContext();
+                        }*@
+                </p>
+
+            </div>
+
+        </div>
+    }
+
+
+
+</div>
+
+<div class="container">
+@Html.PagedListPager(Model.ListOfProducts, page => Url.Action("DeviceIndex", new { page, search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+</div>
+
+

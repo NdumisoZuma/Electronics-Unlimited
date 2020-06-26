@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+
+    <script src="~/Content/js/jquery-3.4.1.min.js"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/MyMainLayOut.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+
+    <style type="text/css">
+
+
+        .header-right a.signin {
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #6d6f7d;
+            text-transform: capitalize;
+            font-family: 'Niramit', sans-serif;
+        }
+
+        #logo-Pic {
+            top: 15px;
+            width: 100px;
+            height: 50px;
+        }
+
+        #logo-Pic:hover{
+       
+    color: #888;
+    text-decoration: underline;
+}
+        }
+
+        #aa-footer {
+            background-color: transparent;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow: auto;
+            position: relative;
+        }
+
+
+        .body-content {
+            /*overflow:auto;
+           position:relative;*/
+            /* background-image: url('../../Image/background/21-cool-backgrounds-hd-jpeg-png-free-premium-templates-simplistic-hd-simplistic-png-650_587.jpg');*/
+        }
+
+        body:before {
+            content: "";
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: -1;
+            display: block;
+            background-image: url('../../Image/background/32899289206_d8b4b28775_b.jpg');
+            background-size: cover;
+            width: 110%;
+            height: 110%;
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -o-filter: blur(5px);
+            -ms-filter: blur(5px);
+            filter: blur(5px);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        ol,
+        ul,
+        dl {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+            a:hover {
+                color: #0056b3;
+                text-decoration: underline;
+            }
+
+
+
+
+        .container {
+            color: black;
+        }
+
+        #navbar-example {
+            height: 80px;
+            border: hidden;
+            top: 0px;
+            background-color: white;
+            /*background-image: url('../../Image/Nav.jpeg');*/
+        }
+
+        #link:hover {
+            background-color: peru;
+            height: 80px;
+        }
+    </style>
+
+    <link href="~/Content/MDB-Free_4.15.0/css/mdb.css" rel="stylesheet" />
+    <link href="~/Content/MDB-Free_4.15.0/css/mdb.lite.css" rel="stylesheet" />
+    <link href="~/Content/MDB-Free_4.15.0/css/mdb.lite.min.css" rel="stylesheet" />
+
+
+    <link href="~/Content/MDB-Free_4.15.0/css/mdb.min.css" rel="stylesheet" />
+
+
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body  >
+
+    <div class="background-image"></div>
+
+    <nav id="navbar-example" class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#Electonics-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="~/Image/Logo/ad0118b8-5969-4af9-b49d-15ffb4719521_200x2002.png" id="logo-Pic"/>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="Electronics-navbar-collapse">
+            <ul class="nav navbar-nav  ">
+                <li id="link"><a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-2x" aria-hidden="true"></i> Home</a></li>
+                <li id="link"><a href="@Url.Action("Index", "Shop")"><i class="fa fa-cart-arrow-down fa-2x" aria-hidden="true"></i>Shop</a></li>
+                
+                <li id="link"> <a href="@Url.Action("ShoppingCart","Shop")"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>Cart (@Html.Action(actionName: "countCartItems", controllerName: "Shop"))<span class="caret"></span> </a> </li>
+                    
+
+                
+                <li id="link"><a href="@Url.Action("About", "Home")"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i>About</a></li>
+                <li id="link"><a href="@Url.Action("Contact", "Home")"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i>Contact</a></li>
+
+                @if (User.IsInRole("Administrator"))
+                {
+                    <li><a href="@Url.Action("Index","Admin")"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i>Dashboard</a></li>
+                }
+
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+
+
+
+
+
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<div id="navbar-example" class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Electronics Unlimited", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Shop","Index","Shop")</li>
+                        <li class="dropdown">
+                            <a href="@Url.Action("ShoppingCart", "Shop")" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="fa fa-shopping-cart"></span> Cart (@Html.Action(actionName: "countCartItems", controllerName: "Shop"))<span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-cart" role="menu" style="background: #000000;color:rgba(107, 37, 37, 1)">
+                                <li class="divider"></li>
+                                <li>
+                                    <a class="btn btn-default" href="@Url.Action("ShoppingCart", "Shop")">
+                                        <i class="fa fa-shopping-cart"></i> View Cart
+                                    </a>
+                                </li>
+
+                            </ul>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="dropdown">
+                                <a></a>
+
+
+
+
+
+                            </li>
+                            <li>@Html.ActionLink("Aministration","Index","Admin")</li>
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>*@
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Application by Ndumiso zuma</p>
+        </footer>
+    </div>
+
+
+    <footer id="aa-footer">
+        <!-- footer bottom -->
+        <div class="aa-footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="aa-footer-top-area">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="aa-footer-widget">
+                                        <h3>Main Menu</h3>
+                                        <ul class="aa-footer-nav">
+                                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                            <li><a href="#">Our Services</a></li>
+                                            <li><a href="#">Our Products</a></li>
+                                            <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                                            <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="aa-footer-widget">
+                                        <div class="aa-footer-widget">
+                                            <h3>Knowledge Base</h3>
+                                            <ul class="aa-footer-nav">
+                                                <li><a href="#">Delivery</a></li>
+                                                <li><a href="#">Returns</a></li>
+                                                <li><a href="#">Services</a></li>
+                                                <li><a href="#">Discount</a></li>
+                                                <li><a href="#">Special Offer</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="aa-footer-widget">
+                                        <div class="aa-footer-widget">
+                                            <h3>Useful Links</h3>
+                                            <ul class="aa-footer-nav">
+                                                <li><a href="#">Search</a></li>
+                                                <li><a href="#">Advanced Search</a></li>
+                                                <li><a href="#">Suppliers</a></li>
+                                                <li><a href="#">FAQ</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="aa-footer-widget">
+                                        <div class="aa-footer-widget">
+                                            <h3>Contact Us</h3>
+                                            <address>
+                                                <p> WestStreet Durban 4000</p>
+                                                <p><span class="fa fa-phone"></span>031-509-5247</p>
+                                                <p><span class="fa fa-envelope"></span>help@abiy.com</p>
+                                            </address>
+                                            <div class="aa-footer-social">
+                                                <a href="#"><span class="fa fa-facebook"></span></a>
+                                                <a href="#"><span class="fa fa-twitter"></span></a>
+                                                <a href="#"><span class="fa fa-google-plus"></span></a>
+                                                <a href="#"><span class="fa fa-youtube"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+</body>
+</html>

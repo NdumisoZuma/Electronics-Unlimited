@@ -1,0 +1,270 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+    <link href="~/Content/Slideshow.css" rel="stylesheet" />
+<style type="text/css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    *{
+        box-sizing: border-box;
+    }
+
+
+
+    .jumbotron {
+        /*background-image:url("/Image/background/images (33).jpg");*/
+        -moz-box-shadow: 5px 5px 5px 5px #808080;
+        -webkit-box-shadow: 5px 5px 5px 5px #808080;
+        box-shadow: 5px 5px 5px 5px #808080;
+        background-color: transparent;
+    }
+
+    #heading {
+        font-family: fantasy;
+        color: firebrick;
+    }
+
+    #text {
+        font-family: Roboto;
+        color: cornflowerblue;
+    }
+
+    #text2 {
+        -moz-box-shadow: 5px 5px 5px 5px #808080;
+        -webkit-box-shadow: 5px 5px 5px 5px #808080;
+        box-shadow: 5px 5px 5px 5px #808080;
+        color: saddlebrown;
+        font-family: fantasy;
+        background-image: url("/Image/pics/Screenshot_20200124-004356.jpg");
+        width: 500px;
+        height: 300px;
+    }
+
+    h3 {
+        color: firebrick;
+        font-family: fantasy;
+    }
+
+    #text3 {
+        -moz-box-shadow: 5px 5px 5px 5px #808080;
+        -webkit-box-shadow: 5px 5px 5px 5px #808080;
+        box-shadow: 5px 5px 5px 5px #808080;
+        color: saddlebrown;
+        font-family: fantasy;
+        background-image: url("/Image/pics/Screenshot_20200124-004447.jpg");
+        width: 500px;
+        height: 300px;
+    }
+
+    #pic {
+        width: 250px;
+        height: 250px;
+    }
+
+    .slideshow-container {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+    }
+
+    .mySlides {
+        display: none;
+    }
+
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+    .text {
+        color: #f2f2f2;
+        font-size: 15px;
+        padding: 8px 12px;
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+
+        .active, .dot:hover {
+            background-color: #717171;
+        }
+
+    .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    
+</style>
+
+
+
+
+
+
+<div data-spy="scroll">
+    <div class="jumbotron">
+        <h1 id="heading">ELECTRONICS UNLIMITED</h1>
+        <p id="text" class="lead">Welcome to Electronics Unlimited, the home of electronics.</p>
+
+        @*<img src="~/Image/background/images (33).jpg" />*@
+    </div>
+
+    <div id="themeSlider" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#themeSlider" data-slide-to="0" class="active"></li>
+            <li data-target="#themeSlider" data-slide-to="1"></li>
+            <li data-target="#themeSlider" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="imgOverlay"></div>
+                <img style="height:320px;width:100%" src="~/Image/Slide2.jpeg" alt="First slide">
+                <div class="carousel-caption">
+                    <h3>New</h3>
+
+                </div>
+            </div>
+            <div class="item">
+                <div class="imgOverlay"></div>
+                <img style="height:320px;width:100%" src="~/Image/Slide1.jpeg" alt="Second slide">
+                <div class="carousel-caption">
+                    <h3>My Phone</h3>
+
+
+                </div>
+            </div>
+            <div class="item">
+                <div class="imgOverlay"></div>
+                <img style="height:320px;width:100%" src="~/Image/Slide 3.jpeg" alt="Third slide">
+                <div class="carousel-caption">
+                    <h3>Latest</h3>
+
+                </div>
+            </div>
+        </div>
+        <a class="left carousel-control" href="#themeSlider" data-slide="prev">
+            <span class="fa fa-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#themeSlider" data-slide="next">
+            <span class="fa fa-chevron-right"></span>
+        </a>
+
+    </div>
+
+    <div class="olContent f1"><h2 style="color:black">Search Product/Category</h2></div>
+    <div class="olSearch fr">
+        <input type="text" placeholder="Enter Keyword" name="searchKey" class="inputComn houseText form-control" />
+        <div class="searchIcon">
+            <button type="button" class="searchBtn">
+               
+            </button>
+        </div>
+        
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2 id="heading">Contract Products</h2>
+            <p id="text2">
+                @*<img src="~/Image/pics/Screenshot_20200124-004356.jpg" id="pic" />*@
+                <br />
+                <h3>
+                    View All products available on contract.
+                </h3>
+
+            </p>
+
+            <p><a class="btn btn-success" href="@Url.Action("DeviceIndex", "Shop")"><i class="fa fa-lock"></i> View Shop &raquo;</a></p>
+        </div>
+
+        <div class="col-md-6">
+            <h2 id="heading">Prepaid Products </h2>
+            <p id="text3">
+
+
+                @*<img src="~/Image/pics/Screenshot_20200124-004447.jpg" id="pic" />*@
+                <br />
+                <h3> View all products available on prepaid.</h3>
+            </p>
+            <p><a class="btn btn-success" href="@Url.Action("AccessoryIndex", "Shop")"><i class="fa fa-lock"></i>View Shop &raquo;</a></p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+</div>

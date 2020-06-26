@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Electronica.Models.RoleDTO>
+
+@{
+    ViewBag.Title = "Roles";
+    ViewBag.TitleSmall = "All";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <a class="btn btn-primary pull-right" href="@Url.Action("AddRole")"><i class="fa fa-plus"></i> Add</a>
+
+                <br />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <center>
+                    <p>
+                        @*@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Add Role", "AddRole", null, new { @class = "btn btn-default" })*@
+                    </p>
+                </center>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Role
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RoleName)
+                            </td>
+                            <td>
+                                @if (item.RoleName.ToLower() != "administrator")
+                                {
+                                    @Html.ActionLink("Delete", "DeleteUserRole",
+                               new { RoleName = item.RoleName },
+                               new
+                               {
+                                   onclick =
+                               "return confirm('Are you sure you wish to delete this role?');"
+                               })
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                </table>
+
+                <div class="box-footer">
+                    <a class="btn btn-warning btn-sm pull-right"
+                       href="@Url.Action("Index")">
+                        <i class="fa fa-trash"> </i> Back To List
+                    </a>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,120 @@
+﻿@model Electronica.Models.ShopVM
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ShopVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prod_Pic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prod_Pic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VAT_Percent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VAT_Percent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.monthly_p)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.monthly_p)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.months)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.months)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.interestRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.interestRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Purchase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Purchase)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

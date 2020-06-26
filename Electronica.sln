@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Electronica", "Electronica\Electronica.csproj", "{93CC48AF-26DF-4153-BD61-E897770C997E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Electronica.Tests", "Electronica.Tests\Electronica.Tests.csproj", "{CE4955B0-6D9F-452E-8780-AB4CF1EFEE7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93CC48AF-26DF-4153-BD61-E897770C997E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93CC48AF-26DF-4153-BD61-E897770C997E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93CC48AF-26DF-4153-BD61-E897770C997E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93CC48AF-26DF-4153-BD61-E897770C997E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE4955B0-6D9F-452E-8780-AB4CF1EFEE7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE4955B0-6D9F-452E-8780-AB4CF1EFEE7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE4955B0-6D9F-452E-8780-AB4CF1EFEE7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE4955B0-6D9F-452E-8780-AB4CF1EFEE7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE20539C-ABC2-4286-A476-717826C859FA}
+	EndGlobalSection
+EndGlobal

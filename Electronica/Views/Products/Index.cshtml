@@ -1,0 +1,111 @@
+﻿@model PagedList.IPagedList<Electronica.Models.Product>
+@using PagedList.Mvc
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <p>
+        Find by Name : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            Thumbnail
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Supplier
+        </th>
+        <th>
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            VAT
+        </th>
+        <th>
+            Quantity Available
+        </th>
+        <th>
+            @Html.ActionLink("Total", "Index", new { sortOrder = ViewBag.TotalSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                <a><img src="data:image/png;base64,@Convert.ToBase64String(item.prod_Pic,0,item.prod_Pic.Length)" style="width:60px; height:60px" alt="Product image" /></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.supplier.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VAT_Percent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_Qty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Prod_Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Prod_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Prod_Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of
+@Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("index",
+new
+{
+    page,
+    sortOrder = ViewBag.CurrentSort,
+    currentFilter =
+ViewBag.CurrentFilter
+}))

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+
+    h3{
+        font-family:fantasy;
+    }
+
+    #pic{
+         -moz-box-shadow: 5px 5px 5px 5px #808080;
+        -webkit-box-shadow: 5px 5px 5px 5px #808080;
+        box-shadow: 5px 5px 5px 5px #808080;
+
+        width:450px;
+        height:300px
+    }
+
+</style>
+<link href="~/Content/MDB-Free_4.15.0/css/mdb.css" rel="stylesheet" />
+
+<br />
+<div class=" col-md-7">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th> <h3>Navigate to</h3></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr >
+                <td><h4><small><a class="btn btn-warning rounded-bottom" href="@Url.Action("DeviceIndex","Shop")"> Contract</a></small></h4></td>
+            </tr>
+            <tr >
+                <td><h4><small><a class="btn btn-success" href="@Url.Action("AccessoryIndex","Shop")"> Prepaid</a></small></h4></td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
