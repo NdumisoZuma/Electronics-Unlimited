@@ -22,7 +22,7 @@ namespace Electronica.Models
         [Required]
         [DataType(DataType.Currency)]
         [Display(Name = "Amount")]
-        public double AmountPaid { get; set; }
+        public decimal AmountPaid { get; set; }
         [Required]
         [Display(Name = "Description")]
         public string PaymentFor { get; set; }

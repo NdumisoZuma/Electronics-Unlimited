@@ -1,4 +1,4 @@
-﻿@model Electronica.Models.DeviceIndexViewModel1
+﻿@model Electronica.View_Models.ProductIndexViewModel
 @using PagedList.Mvc
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css">
 
@@ -67,45 +67,71 @@
     }
 </style>
 
+<p>
+    @(String.IsNullOrWhiteSpace(Model.Search) ? "Showing all" : "You search for " + Model.Search + " found") @Model.Products.TotalItemCount products
+</p>
+
+
+<p>
+    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+    @using (Html.BeginForm("DeviceIndex", "Shop", FormMethod.Get))
+    {
+        <label>Filter by category:</label>
+        @Html.DropDownListFor(vm => vm.Category, Model.CatFilterItems, "All");
+        <label>Sort by:</label>
+        @Html.DropDownListFor(vm => vm.sortBy, new SelectList(Model.sorts, "Value", "Key"), "Default")
+        <input type="submit" value="Filter" />
+        <input type="hidden" name="Search" id="Search" value="@Model.Search" />
+    }
+</p>
+
+
+
+
+
+
+
 
 
 
 
 <br />
-<div>
-    @using (Html.BeginForm("DeviceIndex", "Shop", FormMethod.Get))
+@*<div>
+        @using (Html.BeginForm("DeviceIndex", "Shop", FormMethod.Get))
+        {
+            <p>
+                Find by Name : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                <input type="submit" value="Search" />
+            </p>
+        }
+    </div>
+
+    <div>
+        @Html.ActionLink("Sort", "DeviceIndex", new { sortOrder = ViewBag.NameSortparm, currentFilter = ViewBag.CurrentFilter })
+    </div>*@
+
+
+
+
+<div class="row" data-target="#navbar-example" data-offset="0"
+     style="height:550px; position:page;">
+    @foreach (var item in Model.Products)
+
     {
-        <p>
-            Find by Name : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-            <input type="submit" value="Search" />
-        </p>
-    }
-</div>
 
-<div>
-    @Html.ActionLink("Sort", "DeviceIndex", new { sortOrder = ViewBag.NameSortparm, currentFilter = ViewBag.CurrentFilter })
-</div>
-
-
-
-
-<div class="row"  data-target="#navbar-example" data-offset="0"
-     style="height:550px;overflow:auto; position: relative;">
-    @foreach (var item in Model.ListOfProducts)
-
-    {
-
-        <div class="col-md-4 table-condensed" id="card" style="height:270px">
+        <div class="col-md-4 table-condensed" id="card" style="height:470px">
 
             <div class="row" style="text-align: center;padding-top:5px">
 
-                @if (item.prod_Pic != null)
+                 @if (item.productImageMappings != null && item.productImageMappings.Any())
                 {
-                    var base64 = Convert.ToBase64String(inArray: item.prod_Pic);
-                    var imgSrc = string.Format(format: "data:image/gif;base64,{0}", arg0: base64);
-                    <img src="@imgSrc" width="200" height="230" />
+                    <a href="@Url.Action("Details", new { id = item.Prod_Id})">
+                        <img src="@(Url.Content(constant.ProductImagePath) + item.productImageMappings.OrderBy(pim=>pim.ImageNumber).ElementAt(0).ProductImage.FileName)" />
+                    </a>
                 }
-
             </div>
 
             <div class="row">
@@ -156,7 +182,7 @@
 
 
                 <p class="price" style="text-align:center">
-                    R @Html.DisplayFor(modelItem => item.Total)
+                    R @Html.DisplayFor(modelItem => item.Prod_Price)
                 </p>
 
 
@@ -172,7 +198,7 @@
                     else
                     {
                         <a href="@Url.Action(actionName: "Add_to_cart", controllerName: "Shop", routeValues: new {id = item.Prod_Id})" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Add to cart</a><br />
-                        <a href="@Url.Action(actionName: "Details", controllerName: "Devices", routeValues: new {id = item.Prod_Id})" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> View Details</a>
+                        <a href="@Url.Action(actionName: "Details", controllerName: "Shop", routeValues: new {id = item.Prod_Id})" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> View Details</a>
 
                     }
                     @*@if ()
@@ -190,8 +216,21 @@
 
 </div>
 
-<div class="container">
+<@*div class="container">
 @Html.PagedListPager(Model.ListOfProducts, page => Url.Action("DeviceIndex", new { page, search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+</div>*@
+
+<div>
+    Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
+    @Html.PagedListPager(Model.Products, page => Url.Action("DeviceIndex",
+    new
+        {
+            category = @Model.Category,
+        Search = @Model.Search,
+        sortBy = @Model.sortBy,
+        page
+    }))
 </div>
+
 
 

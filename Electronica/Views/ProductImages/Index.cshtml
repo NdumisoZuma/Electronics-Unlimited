@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Electronica.Models.ProductImage>
+
+@{
+    ViewBag.Title = "Images";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Upload New Image", "Upload")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @if (!String.IsNullOrWhiteSpace(item.FileName))
+                {
+                    <img src="@(Url.Content(constant.ProductImagePath) + item.FileName)" />
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteConfirmed", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

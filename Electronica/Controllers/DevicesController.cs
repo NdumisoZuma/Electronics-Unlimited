@@ -73,12 +73,12 @@ namespace Electronica.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Device device = db.Devices.Find(id);
-            if (device == null)
+            Product products = db.Products.Find(id);
+            if (products == null)
             {
                 return HttpNotFound();
             }
-            return View(device);
+            return View(products);
         }
 
         // GET: Devices/Create

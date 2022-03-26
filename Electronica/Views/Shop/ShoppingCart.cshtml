@@ -51,7 +51,7 @@
                         @Html.EditorFor(modelItem => Model[item].quantity, new { htmlAttributes = new { @class = "form-control", @style = "width:100px" }, @type = "number", @min = "0", @step = "0.01", @value = "0" })
                     </td>
                     <th>
-                        @Model[item].price.ToString("R 0.00")
+                        @Model[item].product.Prod_Price.ToString("R 0.00")
                     </th>
                     <td>
                         <a href="@Url.Action("remove_from_cart", "Shop", new {id = Model[item].Cart_Itme_Id})" class="btn btn-warning"><i class="fa fa-times"></i> Remove</a>

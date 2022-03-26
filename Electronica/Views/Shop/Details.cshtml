@@ -1,0 +1,124 @@
+﻿
+
+@model Electronica.Models.Product
+
+@{
+    ViewBag.Title = "Products Details";
+  
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.category.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Price)
+        </dd>
+        @if (Model.productImageMappings != null && Model.productImageMappings.Any())
+        {
+            <dt></dt>
+            <dd>
+                <img src="@(Url.Content(constant.ProductImagePath) + Model.productImageMappings.OrderBy(pim=>pim.ImageNumber).ElementAt(0).ProductImage.FileName)" />
+            </dd>
+            <dt></dt>
+            <dd>
+                @foreach (var item in Model.productImageMappings.OrderBy(pim => pim.ImageNumber))
+                {
+                    <a href="@(Url.Content(constant.ProductImagePath) + item.ProductImage.FileName)">
+                        <img src="@(Url.Content(constant.ProductThumbnailPath) + item.ProductImage.FileName)" />
+                    </a>
+                }
+            </dd>
+        }
+
+
+        <dt id="button" style="text-align: center">
+           
+        </dt>
+
+
+
+
+        @*Allow User Add to Basket*@
+        @*<dt>
+            Quantity:
+        </dt>*@
+
+
+
+
+
+
+
+
+    <dd>
+        @if (Model.Prod_Qty == 0)
+        {
+            <a href="@Url.Action(actionName: "Add_to_cart", controllerName: "Shop", routeValues: new {id = Model.Prod_Id})" class="btn disabled btn-default"><i class="fa fa-shopping-cart disabled"></i> Out of stock</a>
+        }
+        else
+        {
+            <a href="@Url.Action(actionName: "Add_to_cart", controllerName: "Shop", routeValues: new {id = Model.Prod_Id})" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Add to cart</a><br />
+         
+
+        }
+    </dd>
+
+    </dl>
+</div>
+<p>
+    @if (User.IsInRole("Administrator"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Prod_Id }) 
+        @Html.ActionLink("Back to List", "Index")
+    }
+    
+</p>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            //function runs when user clicks on a thumbnail
+            //Jquery selector to find any img tags that are direct descendants of a tag
+            $('a>img').click(function (evt) {
+                evt.preventDefault();//prevent user following the link
+                var thumbnailAddress = $(this).parent().attr('href');//obtain current address of link
+                var mainImage = $('dd > img');//select mainImage
+                mainImage.attr('src', thumbnailAddress);//find src of image n replace with large thumbnail
+            });
+        });
+    </script>
+
+}
+

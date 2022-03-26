@@ -1,0 +1,101 @@
+﻿@model Electronica.View_Models.ProductIndexViewModel
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<p>
+    @(String.IsNullOrWhiteSpace(Model.Search)? "Showing All": "Your search for" + Model.Search + "found") @Model.Products.TotalItemCount products
+</p>
+
+<p>
+    @if (User.IsInRole("Administrator"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+
+    @using (Html.BeginForm("Index2", "Products", FormMethod.Get))
+    {
+        <label> Filter by category:</label>
+        @Html.DropDownListFor(vm => vm.Category, Model.CatFilterItems, "All");
+        <label>Sort by:</label>
+        @Html.DropDownListFor(vm => vm.sortBy, new SelectList(Model.sorts, "Value", "Key"), "Default");
+        <input type="submit" value="Filter" />
+        <input type="hidden" name="Search" id="Search" value="@Model.Search" />
+
+    }
+
+
+
+
+</p>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Products.First().Prod_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Products.First().Prod_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Products.First().Prod_Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Products)
+    {
+        <tr>
+            <td>
+                @if (item.productImageMappings != null && item.productImageMappings.Any())
+                {
+                    <a href="@Url.Action("Details", new { id = item.Prod_Id})">
+                        <img src="@(Url.Content(constant.ProductImagePath) + item.productImageMappings.OrderBy(pim=>pim.ImageNumber).ElementAt(0).ProductImage.FileName)" />
+                    </a>
+                }
+            </td>
+            <td data-th="@Html.DisplayNameFor(model => model.Category)">
+                @Html.DisplayFor(modelItem => item.category.CategoryName)
+            </td>
+            <td data-th="@Html.DisplayNameFor(model => model.Products.First().Prod_Name)">
+                @Html.DisplayFor(modelItem => item.Prod_Name)
+            </td>
+            <td data-th="@Html.DisplayNameFor(model => model.Products.First().Prod_Description)">
+                @Html.DisplayFor(modelItem => item.Prod_Description)
+            </td>
+            <td data-th="@Html.DisplayNameFor(model => model.Products.First().Prod_Price)">
+                @Html.DisplayFor(modelItem => item.Prod_Price)
+            </td>
+            <td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Prod_Id })
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Prod_Id })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
+    @Html.PagedListPager(Model.Products, page => Url.Action("Index",
+    new
+        {
+            category = @Model.Category,
+        Search = @Model.Search,
+        sortBy = @Model.sortBy,
+        page
+    }))
+</div>
+

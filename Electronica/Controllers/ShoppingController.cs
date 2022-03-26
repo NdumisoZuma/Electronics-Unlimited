@@ -11,9 +11,11 @@ using Electronica.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SendGrid;
+using System.Data.Entity;
 using SendGrid.Helpers.Mail;
 using PagedList;
-
+using Electronica.View_Models;
+using Electronica;
 namespace Electronica.Controllers
 {
 
@@ -23,7 +25,7 @@ namespace Electronica.Controllers
     {
         public ApplicationDbContext _db = new ApplicationDbContext();
         // GET: Shopping
-        private Product ph = new Device();
+        private Product ph = new Product();
         private Product acc = new Accessory();
 
         public string shoppingCartID { get; set; }
@@ -31,9 +33,16 @@ namespace Electronica.Controllers
 
         private bool Pymnt;
 
+
+
+
+
         public ActionResult Index()
         {
-            return View();
+
+
+
+            return View(_db.Categories.ToList());
 
         }
         
@@ -55,9 +64,99 @@ namespace Electronica.Controllers
         }
 
 
-        public ActionResult DeviceIndex( string search ,string sortOrder, string currentFilter, string searchString, int? page)
+       
+        public ActionResult DeviceIndex( string search , int? page , string category, string sortBy)
         {
-            DeviceIndexViewModel1 model = new DeviceIndexViewModel1();
+          //  DeviceIndexViewModel1 model = new DeviceIndexViewModel1();
+
+           
+
+            //instantiate new viewmoedel
+            ProductIndexViewModel viewModel = new ProductIndexViewModel();
+
+            //select product
+            var product = _db.Products.Include(p => p.category);
+
+
+            //search for product via name, category or description
+            if (!String.IsNullOrEmpty(search))
+            {
+                product = product.Where(p => p.Prod_Name.Contains(search) || p.Prod_Description.Contains(search) || p.category.CategoryName.Contains(search));
+
+                // normally we store search in viewbag
+                // ViewBag.Search = search
+
+                // store in vm
+                viewModel.Search = search;
+            }
+
+
+            //filter by category
+            if (!String.IsNullOrEmpty(category))
+            {
+                product = product.Where(p => p.category.CategoryName == category);
+            }
+
+           
+
+
+
+            // group search results into categories and count how many items in each category
+
+            viewModel.CatsWithCount = from p in product
+                                      where
+                                      p.Category_Id != null
+                                      group p by
+                                      p.category.CategoryName into
+                                      catGroup
+                                      select new CategoryWithCount()
+                                      {
+                                          CategoryName = catGroup.Key,
+                                          ProductCount = catGroup.Count()
+                                      };
+
+
+
+           
+            //product filtered by category after categories variable
+
+            if (!String.IsNullOrEmpty(category))
+            {
+                product = product.Where(p => p.category.CategoryName == category);
+                viewModel.Category = category;
+            }
+
+            //sort the results
+            switch (sortBy)
+            {
+                case "price_lowest":
+                    product = product.OrderBy(p => p.prod_Pic);
+                    break;
+                case "price_highest":
+                    product = product.OrderByDescending(p => p.Prod_Price);
+                    break;
+                default:
+                    product = product.OrderBy(p => p.Prod_Name);
+                    break;
+            }
+
+            //const int PageItems =3;
+            int currentPage = (page ?? 1);
+            viewModel.Products = product.ToPagedList(currentPage, constant.PageItems);
+            viewModel.sortBy = sortBy;
+
+
+            //hold data to populate select element
+            viewModel.sorts = new Dictionary<string, string>
+            {
+                {"Price low to high","price_lowest" },
+                {"Price high to low","price_highest" },
+            };
+            return View(viewModel);
+
+
+
+
 
             //ViewBag.CurrentSort = sortOrder;
             //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc"
@@ -103,11 +202,11 @@ namespace Electronica.Controllers
 
             //}
 
-           
 
 
 
-            return View(model.CreateModel(search,10,page));
+
+            
         }
 
         public ActionResult AccessoryIndex(string search,  int? page)
@@ -123,7 +222,7 @@ namespace Electronica.Controllers
         // For Phones
         public ActionResult Add_to_cart(int id)
         {
-            var item = _db.Devices.Find(id);
+            var item = _db.Products.Find(id);
             if (item != null)
             {
                 add_item_to_cart(id);
@@ -165,6 +264,24 @@ namespace Electronica.Controllers
 
         }
 
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = _db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
+        }
+
+
+
+
         public ActionResult ShoppingCart()
         {
             shoppingCartID = GetCartID();
@@ -199,7 +316,7 @@ namespace Electronica.Controllers
         {
             shoppingCartID = GetCartID();
 
-            var item = _db.Devices.Find(id);
+            var item = _db.Products.Find(id);
             if (item != null)
             {
                 var cartItem =
@@ -224,7 +341,7 @@ namespace Electronica.Controllers
                         Cartid = shoppingCartID,
                         Item_ID = item.Prod_Id,
                         quantity = 1,
-                        price = item.monthly_p
+                        price = item.Total
                     });
                 }
                 else
@@ -326,9 +443,9 @@ namespace Electronica.Controllers
             }
             _db.SaveChanges();
         }
-        public double get_cart_total(string id)
+        public decimal get_cart_total(string id)
         {
-            double amount = 0;
+            decimal amount = 0;
             foreach (var item in _db.cart_Items.ToList().FindAll(match: x => x.Cartid == id))
             {
                 amount += (item.price * item.quantity);
@@ -729,9 +846,9 @@ namespace Electronica.Controllers
             Pymnt = true;
             return View();
         }
-        public double get_order_total(int id)
+        public decimal get_order_total(int id)
         {
-            double amount = 0;
+            decimal amount = 0;
             foreach (var item in _db.Order_Items.ToList().FindAll(match: x => x.Order_id == id))
             {
                 amount += (item.price * item.quantity);

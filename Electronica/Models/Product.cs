@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Electronica.Models
 {
-    public abstract class Product
+    public partial class Product
     {
         [Key]
 
@@ -26,18 +26,18 @@ namespace Electronica.Models
         [Display(Name = "Description")]
         public string Prod_Description { get; set; }
         [Display(Name = "Price")]
-        public double Prod_Price { get; set; }
+        public decimal Prod_Price { get; set; }
         [Display(Name = "VAT")]
-        public double VAT_Percent { get; set; }
+        public decimal VAT_Percent { get; set; }
         [Display(Name = "Quantity")]
         public int Prod_Qty { get; set; }
 
-        public double Total { get; set; }
-
-        public virtual double CalcTotal()
+        public decimal Total { get; set; }
+        decimal tot;
+        public virtual decimal CalcTotal()
         {
-            double tot;
-            tot = +(Prod_Price) + (Prod_Price * (VAT_Percent / 100));
+            
+            tot =+ (Prod_Price) ;
             return tot;
         }
 
@@ -57,20 +57,20 @@ namespace Electronica.Models
 
         }
 
-        public Product(int ProdId, int Category_Id, string Prod_Name, byte[] Prod_Pic, string Prod_Description, double Prod_Price, double VAT_Percent, int Prod_Qty, double Total, int Supplier_Id)
-        {
-            this.Prod_Id = ProdId;
-            this.Prod_Name = Prod_Name;
-            this.prod_Pic = Prod_Pic;
-            this.Prod_Description = Prod_Description;
-            this.Prod_Price = Prod_Price;
-            this.VAT_Percent = VAT_Percent;
-            this.Total = Total;
-            this.Prod_Qty = Prod_Qty;
-            this.Supplier_Id = Supplier_Id;
-            this.Category_Id = Category_Id;
+        //public Product(int ProdId, int Category_Id, string Prod_Name, byte[] Prod_Pic, string Prod_Description, decimal Prod_Price, decimal VAT_Percent, int Prod_Qty, decimal Total, int Supplier_Id)
+        //{
+        //    this.Prod_Id = ProdId;
+        //    this.Prod_Name = Prod_Name;
+        //    this.prod_Pic = Prod_Pic;
+        //    this.Prod_Description = Prod_Description;
+        //    this.Prod_Price = Prod_Price;
+        //    this.VAT_Percent = VAT_Percent;
+        //    this.Total = Total;
+        //    this.Prod_Qty = Prod_Qty;
+        //    this.Supplier_Id = Supplier_Id;
+        //    this.Category_Id = Category_Id;
 
-        }
+        //}
 
 
 
@@ -78,5 +78,6 @@ namespace Electronica.Models
         public virtual Supplier supplier { get; set; }
         public virtual Category category { get; set; }
         public ICollection<Cart_Item> cart_Items { get; set; }
+        public virtual ICollection<ProductImageMapping> productImageMappings { get; set; }
     }
 }

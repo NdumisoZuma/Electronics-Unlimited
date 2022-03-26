@@ -20,7 +20,7 @@ namespace Electronica.Models
         public virtual Product Item { get; set; }
 
         public int quantity { get; set; }
-        public double price { get; set; }
+        public decimal price { get; set; }
 
         public bool replied { get; set; }
         public Nullable<DateTime> date_replied { get; set; }

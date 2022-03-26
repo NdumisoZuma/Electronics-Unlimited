@@ -1,22 +1,100 @@
 ﻿
+@model IEnumerable<Electronica.Models.Category>
+
 @{
+    ViewBag.Title = "Categories";
+}
+
+<style type="text/css">
+
+    h3 {
+        font-family: fantasy;
+    }
+
+    #pic {
+        -moz-box-shadow: 5px 5px 5px 5px #808080;
+        -webkit-box-shadow: 5px 5px 5px 5px #808080;
+        box-shadow: 5px 5px 5px 5px #808080;
+        width: 450px;
+        height: 300px
+    }
+</style>
+
+<h2>Categories</h2>
+
+@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+{
+    <p class="large-text">
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+
+<table class="table">
+    @*<tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>*@
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="large-text">
+                @*@Html.DisplayFor(modelItem => item.Name)*@
+                @Html.ActionLink(item.CategoryName, "DeviceIndex", "Shop", new { category = item.CategoryName }, null)
+            </td>
+            <td class="large-text">
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId })
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@{
     ViewBag.Title = "Index";
 }
 <style type="text/css">
 
-    h3{
-        font-family:fantasy;
+    h3 {
+        font-family: fantasy;
     }
 
-    #pic{
-         -moz-box-shadow: 5px 5px 5px 5px #808080;
+    #pic {
+        -moz-box-shadow: 5px 5px 5px 5px #808080;
         -webkit-box-shadow: 5px 5px 5px 5px #808080;
         box-shadow: 5px 5px 5px 5px #808080;
-
-        width:450px;
-        height:300px
+        width: 450px;
+        height: 300px
     }
-
 </style>
 <link href="~/Content/MDB-Free_4.15.0/css/mdb.css" rel="stylesheet" />
 
@@ -30,14 +108,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr >
-                <td><h4><small><a class="btn btn-warning rounded-bottom" href="@Url.Action("DeviceIndex","Shop")"> Contract</a></small></h4></td>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td><h4><small><a class="btn btn-warning rounded-bottom" href="@Url.Action("DeviceIndex","Shop")"> Electronics</a></small></h4></td>
             </tr>
-            <tr >
-                <td><h4><small><a class="btn btn-success" href="@Url.Action("AccessoryIndex","Shop")"> Prepaid</a></small></h4></td>
+            <tr>
+                <td><h4><small><a class="btn btn-success" href="@Url.Action("AccessoryIndex","Shop")"> Appliances</a></small></h4></td>
             </tr>
         </tbody>
 
     </table>
-</div>
+</div>*@
 

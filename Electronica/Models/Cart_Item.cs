@@ -16,7 +16,7 @@ namespace Electronica.Models
         [ForeignKey("cart")]
         public string Cartid { get; set; }
         public int quantity { get; set; }
-        public double price { get; set; }
+        public decimal price { get; set; }
 
         public virtual Product product { get; set; }
         //public virtual Phone phone { get; set; }

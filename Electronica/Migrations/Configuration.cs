@@ -9,9 +9,9 @@ namespace Electronica.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationDataLossAllowed = true;
             AutomaticMigrationsEnabled = true;
-            ContextKey = "Electronica.Models.ApplicationDbContext";
+            AutomaticMigrationDataLossAllowed = true;
+
         }
 
         protected override void Seed(Electronica.Models.ApplicationDbContext context)

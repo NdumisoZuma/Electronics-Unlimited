@@ -49,8 +49,10 @@ namespace Electronica.Models
         public DbSet<Cart> carts { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<Accessory> Accessories { get; set; }
-        
+        public DbSet<OrderLine> OrderLines { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<ProductImage> productImages { get; set; }
+        public DbSet<ProductImageMapping> productImageMappings { get; set; }
 
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Order_Tracking> GetOrder_Trackings { get; set; }

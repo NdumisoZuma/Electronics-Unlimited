@@ -45,7 +45,7 @@
     color: #888;
     text-decoration: underline;
 }
-        }
+        
 
         #aa-footer {
             background-color: transparent;
@@ -175,11 +175,11 @@
             <ul class="nav navbar-nav  ">
                 <li id="link"><a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-2x" aria-hidden="true"></i> Home</a></li>
                 <li id="link"><a href="@Url.Action("Index", "Shop")"><i class="fa fa-cart-arrow-down fa-2x" aria-hidden="true"></i>Shop</a></li>
-                
-                <li id="link"> <a href="@Url.Action("ShoppingCart","Shop")"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>Cart (@Html.Action(actionName: "countCartItems", controllerName: "Shop"))<span class="caret"></span> </a> </li>
-                    
 
-                
+                <li id="link"> <a href="@Url.Action("ShoppingCart","Shop")"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>Cart (@Html.Action(actionName: "countCartItems", controllerName: "Shop"))<span class="caret"></span> </a> </li>
+
+                <li id="link"><a href="@Url.Action("Order_History", "Orders")"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>Order history</a></li>
+
                 <li id="link"><a href="@Url.Action("About", "Home")"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i>About</a></li>
                 <li id="link"><a href="@Url.Action("Contact", "Home")"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i>Contact</a></li>
 
@@ -188,7 +188,21 @@
                     <li><a href="@Url.Action("Index","Admin")"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i>Dashboard</a></li>
                 }
 
+
+
             </ul>
+
+
+            @using (Html.BeginForm("DeviceIndex", "Shop", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+            {
+                <div class="form-group">
+                    @Html.TextBox("Search", null, new { @class = "form-control", @placeholder = "Search Products" })
+                </div>
+                <button type="submit" class="btn btn-amber">Submit</button>
+            }
+
+
+
             @Html.Partial("_LoginPartial")
         </div>
 
@@ -324,9 +338,9 @@
                                         <div class="aa-footer-widget">
                                             <h3>Contact Us</h3>
                                             <address>
-                                                <p> WestStreet Durban 4000</p>
-                                                <p><span class="fa fa-phone"></span>031-509-5247</p>
-                                                <p><span class="fa fa-envelope"></span>help@abiy.com</p>
+                                                <p> 24 Range View Road, Howick West, South Africa</p>
+                                                <p><span class="fa fa-phone"></span>0613498646</p>
+                                                <p><span class="fa fa-envelope"></span>ndumisoZuma.com</p>
                                             </address>
                                             <div class="aa-footer-social">
                                                 <a href="#"><span class="fa fa-facebook"></span></a>
